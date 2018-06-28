@@ -54,14 +54,14 @@ namespace BackupIsabellaData
 
                     string year = "", month = "", day = "", date = "";
 
-                    int i = 0;
-                    int x = 7, y = 1;
+                    int x = 7;
+                    int y = 6;
 
-                    while (i < 3)
+                    while (x < 483)
                     {
-                        if (ws.Cells[x, y].Value2 != null)
+                        if (ws.Cells[x, 1].Value2 != null)
                         {
-                            string tmp = ws.Cells[x, y].Value2.ToString();
+                            string tmp = ws.Cells[x, 1].Value2.ToString();
 
                             if (!tmp.Equals(date))
                             {
@@ -70,10 +70,86 @@ namespace BackupIsabellaData
                                 year = date.Substring(0, 4);
                                 month = date.Substring(5, 2);
                                 day = date.Substring(8, 2);
+                                
+                                double bagNo = ws.Cells[x, 2].Value2;
+                                double totalQty = ws.Cells[x, 4].Value2;
 
-                                DataTextBox.AppendText(year + " " + month + " " + day + "\n");
+                                DataTextBox.AppendText(year + "/" + month + "/" + day + " - " + bagNo + " - " + totalQty + "\n");
 
-                                i++;
+                                while (y < 1610)
+                                {
+                                    if (ws.Cells[x, y].Value2 != null)
+                                    {
+                                        double qty = ws.Cells[x, y].Value2;
+                                        string size = ws.Cells[4, y].Value2.ToString();
+                                        string color = ws.Cells[3, y].Value2.ToString();
+
+                                        string article = "";
+                                        int tmpY = y;
+
+                                        do
+                                        {
+                                            try
+                                            {
+                                                article = ws.Cells[2, tmpY].Value2.ToString();
+                                            }
+                                            catch (Exception)
+                                            {
+                                                article = "exc";
+                                                tmpY--;
+                                            }
+
+                                        } while (article.Equals("exc"));
+                                        
+                                        DataTextBox.AppendText("    " + size + " - " + color + " - " + article + " -- " + qty + "\n");
+                                        //DataTextBox.AppendText("    " + size + " - " + color + " -- " + qty + "\n");
+                                    }
+                                    
+                                    y++;
+                                }
+
+                                y = 6;
+                            }
+                            else
+                            {
+                                double bagNo = ws.Cells[x, 2].Value2;
+                                double totalQty = ws.Cells[x, 4].Value2;
+
+                                DataTextBox.AppendText("same" + " - " + bagNo + " - " + totalQty + "\n");
+
+                                while (y < 1610)
+                                {
+                                    if (ws.Cells[x, y].Value2 != null)
+                                    {
+                                        double qty = ws.Cells[x, y].Value2;
+                                        string size = ws.Cells[4, y].Value2.ToString();
+                                        string color = ws.Cells[3, y].Value2.ToString();
+
+                                        string article = "";
+                                        int tmpY = y;
+
+                                        do
+                                        {
+                                            try
+                                            {
+                                                article = ws.Cells[2, tmpY].Value2.ToString();
+                                            }
+                                            catch (Exception)
+                                            {
+                                                article = "exc";
+                                                tmpY--;
+                                            }
+
+                                        } while (article.Equals("exc"));
+
+                                        DataTextBox.AppendText("    " + size + " - " + color + " - " + article + " -- " + qty + "\n");
+                                        //DataTextBox.AppendText("    " + size + " - " + color + " -- " + qty + "\n");
+                                    }
+
+                                    y++;
+                                }
+
+                                y = 6;
                             }
                         }
 

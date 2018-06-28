@@ -48,6 +48,7 @@
             this.DataTextBox.Location = new System.Drawing.Point(13, 121);
             this.DataTextBox.Multiline = true;
             this.DataTextBox.Name = "DataTextBox";
+            this.DataTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DataTextBox.Size = new System.Drawing.Size(775, 317);
             this.DataTextBox.TabIndex = 1;
             // 
