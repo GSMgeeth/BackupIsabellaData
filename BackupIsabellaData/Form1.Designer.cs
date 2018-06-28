@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.addFileBtn = new System.Windows.Forms.Button();
-            this.DataInfoTxtBox = new System.Windows.Forms.TextBox();
+            this.DataTextBox = new System.Windows.Forms.TextBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // addFileBtn
@@ -40,21 +41,27 @@
             this.addFileBtn.TabIndex = 0;
             this.addFileBtn.Text = "Add Data File";
             this.addFileBtn.UseVisualStyleBackColor = true;
+            this.addFileBtn.Click += new System.EventHandler(this.addFileBtn_Click);
             // 
-            // DataInfoTxtBox
+            // DataTextBox
             // 
-            this.DataInfoTxtBox.Location = new System.Drawing.Point(13, 121);
-            this.DataInfoTxtBox.Multiline = true;
-            this.DataInfoTxtBox.Name = "DataInfoTxtBox";
-            this.DataInfoTxtBox.Size = new System.Drawing.Size(775, 317);
-            this.DataInfoTxtBox.TabIndex = 1;
+            this.DataTextBox.Location = new System.Drawing.Point(13, 121);
+            this.DataTextBox.Multiline = true;
+            this.DataTextBox.Name = "DataTextBox";
+            this.DataTextBox.Size = new System.Drawing.Size(775, 317);
+            this.DataTextBox.TabIndex = 1;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.DataInfoTxtBox);
+            this.Controls.Add(this.DataTextBox);
             this.Controls.Add(this.addFileBtn);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -66,7 +73,8 @@
         #endregion
 
         private System.Windows.Forms.Button addFileBtn;
-        private System.Windows.Forms.TextBox DataInfoTxtBox;
+        private System.Windows.Forms.TextBox DataTextBox;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
