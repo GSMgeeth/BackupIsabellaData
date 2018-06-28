@@ -42,19 +42,51 @@ namespace BackupIsabellaData
                     string path = "C:/Users/Geeth Sandaru/Downloads/" + name;
 
                     wb = excel.Workbooks.Open(path);
-                    ws = wb.Worksheets[1];
+                    ws = wb.Worksheets[3];
 
                     //string deptTmp = ws.Cells[2, 1].Value2;
 
                     int deptNo = 2;
 
-                    //MySqlDataReader readerDept = DBConnection.getData("select * from department where deptName='" + deptTmp + "'");
+                    string text = ws.Cells[2, 1].Value2.ToString();
 
-                    if (/*readerDept.HasRows*/ true)
+                    DataTextBox.Text = text + "\n";
+
+                    string year = "", month = "", day = "", date = "";
+
+                    int i = 0;
+                    int x = 7, y = 1;
+
+                    while (i < 3)
                     {
-                        string date = ws.Cells[2, 2].Value2.ToString();
-                        double qty = ws.Cells[2, 3].Value2;
-                        double dayBagNo = ws.Cells[2, 4].Value2;
+                        if (ws.Cells[x, y].Value2 != null)
+                        {
+                            string tmp = ws.Cells[x, y].Value2.ToString();
+
+                            if (!tmp.Equals(date))
+                            {
+                                date = tmp;
+
+                                year = date.Substring(0, 4);
+                                month = date.Substring(5, 2);
+                                day = date.Substring(8, 2);
+
+                                DataTextBox.AppendText(year + " " + month + " " + day + "\n");
+
+                                i++;
+                            }
+                        }
+
+                        x++;
+                    }
+
+                    //MySqlDataReader readerDept = DBConnection.getData("select * from department where deptName='" + deptTmp + "'");
+                    /*
+                    if (/*readerDept.HasRows true)
+                    {
+                        string date = ws.Cells[7, 1].Value2.ToString();
+                        double totalQty = ws.Cells[7, 4].Value2;
+                        double dayBagNo = ws.Cells[7, 2].Value2;
 
                         string day = date.Substring(1, date.IndexOf('/') - 1);
                         string tmpMonth = date.Substring(date.IndexOf('/') + 1);
@@ -62,24 +94,24 @@ namespace BackupIsabellaData
                         string year = tmpMonth.Substring((tmpMonth.IndexOf('/') + 1), 4);
 
                         DateTime d = new DateTime(Int32.Parse(year), Int32.Parse(month), Int32.Parse(day));
-                        int q = (int)qty;
+                        int q = (int)totalQty;
                         int bNo = (int)dayBagNo;
                         Department dept = new Department((int)deptNo);
 
                         Bag bag = new Bag(d, q, dept, bNo);
 
-                        if (/*Database.isBagExists(bag)*/ false)
+                        if (/*Database.isBagExists(bag) false)
                         {
                             MessageBox.Show("Bag already exists!", "File reader", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
-                            DataTextBox.Text = "Bag deptNo : " + deptNo + "\nBag sent date : " + date + "\nQuantity : " + qty + "\nBagNo : " + dayBagNo + "\n";
+                            DataTextBox.Text = "Bag deptNo : " + deptNo + "\nBag sent date : " + date + "\nQuantity : " + totalQty + "\nBagNo : " + dayBagNo + "\n";
                             DataTextBox.AppendText("\nyear : " + year + "  " + d.Year);
                             DataTextBox.AppendText("\nmonth : " + month + "  " + d.Month);
                             DataTextBox.AppendText("\nday : " + day + "  " + d.Day + "\n\n");
 
-                            for (int i = 0; i < (int)qty; i++)
+                            for (int i = 0; i < (int)totalQty; i++)
                             {
                                 string color = ws.Cells[(i + 5), 1].Value2;
                                 string size = ws.Cells[(i + 5), 2].Value2;
@@ -128,12 +160,12 @@ namespace BackupIsabellaData
                     else
                     {
                         MessageBox.Show("Wrong Department name in the Excel file!", "File reader", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    }*/
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Something wrong with the excel file!", "File reader", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something wrong with the excel file!\n" + exception.StackTrace, "File reader", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
