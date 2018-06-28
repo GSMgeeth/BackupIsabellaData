@@ -44,19 +44,14 @@ namespace BackupIsabellaData
                     wb = excel.Workbooks.Open(path);
                     ws = wb.Worksheets[1];
 
-                    string deptTmp = ws.Cells[2, 1].Value2;
+                    //string deptTmp = ws.Cells[2, 1].Value2;
 
-                    int deptNo = 1;
+                    int deptNo = 2;
 
-                    MySqlDataReader readerDept = DBConnection.getData("select * from department where deptName='" + deptTmp + "'");
+                    //MySqlDataReader readerDept = DBConnection.getData("select * from department where deptName='" + deptTmp + "'");
 
-                    if (readerDept.HasRows)
+                    if (/*readerDept.HasRows*/ true)
                     {
-                        while (readerDept.Read())
-                            deptNo = readerDept.GetInt32("deptNo");
-
-                        readerDept.Close();
-
                         string date = ws.Cells[2, 2].Value2.ToString();
                         double qty = ws.Cells[2, 3].Value2;
                         double dayBagNo = ws.Cells[2, 4].Value2;
@@ -114,8 +109,6 @@ namespace BackupIsabellaData
                                 reader.Close();
 
                                 Database.saveBag(bag);
-
-                                receivedBagDataGridView.DataSource = getReceivedBags();
                             }
                             catch (Exception exc)
                             {

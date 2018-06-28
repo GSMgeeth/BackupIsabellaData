@@ -9,6 +9,9 @@ namespace BackupIsabellaData
 {
     class Database
     {
-
+        internal static void saveBag(Bag bag)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
